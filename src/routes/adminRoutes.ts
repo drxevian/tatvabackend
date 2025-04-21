@@ -5,31 +5,38 @@ import { env } from '../config/env';
 
 const router = express.Router();
 
-// Admin login endpoint
+// Admin login route
 router.post('/login', (req, res) => {
   const { email, password } = req.body;
-
-  // In a real application, you would verify these against a database
-  // For now, using hardcoded credentials (replace with your actual admin credentials)
-  if (email === 'admin@tatvaengineers.com' && password === 'admin123') {
-    const token = jwt.sign(
-      { email, role: 'admin' },
-      env.jwtSecret,
-      { expiresIn: '24h' }
-    );
-
-    // Set the token in an HTTP-only cookie
+  
+  // Check credentials (in a real app, you'd use a database)
+  if (email === 'admin@admin' && password === 'admin') {
+    // Create JWT token
+    const token = jwt.sign({ email, role: 'admin' }, env.jwtSecret, { expiresIn: '1d' });
+    
+    // Set cookie with token
     res.cookie('adminToken', token, {
       httpOnly: true,
       secure: process.env.NODE_ENV === 'production',
-      sameSite: 'strict',
-      maxAge: 24 * 60 * 60 * 1000 // 24 hours
+      maxAge: 24 * 60 * 60 * 1000 // 1 day
     });
-
-    res.json({ success: true });
-  } else {
-    res.status(401).json({ success: false, message: 'Invalid credentials' });
+    
+    return res.json({ success: true });
   }
+  
+  return res.status(401).json({ success: false, message: 'Invalid credentials' });
+});
+
+// Admin logout route
+router.post('/logout', (req, res) => {
+  // Clear the cookie by setting it to expire in the past
+  res.clearCookie('adminToken', {
+    httpOnly: true,
+    secure: process.env.NODE_ENV === 'production',
+    maxAge: 0
+  });
+  
+  return res.json({ success: true });
 });
 
 // Check if the admin is authenticated

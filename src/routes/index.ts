@@ -3,6 +3,7 @@ import productRoutes from './productRoutes';
 import inquiryRoutes from './inquiryRoutes';
 import contactRoutes from './contactRoutes';
 import serviceInquiryRoutes from './serviceInquiryRoutes';
+import adminRoutes from './adminRoutes';
 
 const router = express.Router();
 
@@ -13,5 +14,8 @@ router.use('/products', productRoutes);
 router.use('/inquiries', inquiryRoutes);
 router.use('/contacts', contactRoutes);
 router.use('/service-inquiries', serviceInquiryRoutes);
+
+// Admin routes
+router.use('/admin', adminRoutes);
 
 export default router;
