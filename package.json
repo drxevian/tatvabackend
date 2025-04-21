@@ -3,9 +3,10 @@
   "version": "1.0.0",
   "private": true,
   "scripts": {
-    "start": "node dist/server.js",
+    "start": "ts-node-dev --respawn --transpile-only src/server.ts",
     "build": "tsc",
-    "dev": "ts-node-dev --respawn --transpile-only src/server.ts"
+    "dev": "ts-node-dev --respawn --transpile-only src/server.ts",
+    "prod": "node dist/server.js"
   },
   "dependencies": {
     "@types/cookie-parser": "^1.4.8",
