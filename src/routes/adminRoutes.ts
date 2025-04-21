@@ -8,4 +8,4 @@ router.get('/check-auth', verifyAdminToken, (req, res) => {
   res.json({ authenticated: true });
 });
 
-export default router; 
+export default router;

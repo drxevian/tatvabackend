@@ -25,4 +25,4 @@ export const verifyAdminToken = (req: Request, res: Response, next: NextFunction
   } catch (error) {
     return res.status(401).json({ authenticated: false });
   }
-}; 
+};
