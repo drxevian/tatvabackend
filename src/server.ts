@@ -1,6 +1,8 @@
 import express from 'express';
 import cors from 'cors';
+import cookieParser from 'cookie-parser';
 import apiRoutes from './routes';
+import adminRoutes from './routes/adminRoutes';
 import { env } from './config/env';
 
 const app = express();
@@ -13,7 +15,9 @@ app.use(cors({
 }));
 
 app.use(express.json());
+app.use(cookieParser());
 app.use('/api', apiRoutes);
+app.use('/api/admin', adminRoutes);
 
 app.get('/', (req, res) => {
   res.send('API is running...');
