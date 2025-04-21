@@ -9,7 +9,7 @@ const port = env.port;
 
 // Configure CORS based on environment
 const allowedOrigins = env.nodeEnv === 'production' 
-  ? ['https://tatvaengineers.vercel.app'] // Replace with your actual Vercel domain
+  ? ['https://tatvaengineers.vercel.app'] // Your actual Vercel domain
   : ['http://localhost:5173', 'http://localhost:3000']; // Development origins
 
 app.use(cors({
@@ -25,7 +25,7 @@ app.use(cors({
   },
   credentials: true,
   methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS', 'PATCH'],
-  allowedHeaders: ['Content-Type', 'Authorization']
+  allowedHeaders: ['Content-Type', 'Authorization', 'Accept', 'Origin', 'X-Requested-With']
 }));
 
 app.use(express.json());
