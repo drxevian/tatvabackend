@@ -9,7 +9,7 @@ const port = env.port;
 
 // CORS configuration
 const corsOptions = {
-  origin: true, // Allow all origins
+  origin: ['https://tatvaengineers.vercel.app', 'http://localhost:5173'], // Allow specific origins
   credentials: true,
   methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS', 'PATCH'],
   allowedHeaders: ['Content-Type', 'Authorization', 'Accept', 'Origin', 'X-Requested-With'],
@@ -20,16 +20,6 @@ const corsOptions = {
 
 // Apply CORS middleware
 app.use(cors(corsOptions));
-
-// Add a middleware to set CORS headers for all responses
-app.use((req, res, next) => {
-  const origin = req.headers.origin;
-  if (origin) {
-    res.setHeader('Access-Control-Allow-Origin', origin);
-  }
-  res.setHeader('Access-Control-Allow-Credentials', 'true');
-  next();
-});
 
 app.use(express.json());
 app.use(cookieParser());
