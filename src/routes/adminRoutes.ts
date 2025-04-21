@@ -17,9 +17,8 @@ router.post('/login', (req, res) => {
     // Set cookie with token
     res.cookie('adminToken', token, {
       httpOnly: true,
-      secure: true,
-      sameSite: 'none',
-      domain: '.onrender.com',
+      secure: env.nodeEnv === 'production',
+      sameSite: env.nodeEnv === 'production' ? 'none' : 'lax',
       maxAge: 24 * 60 * 60 * 1000 // 1 day
     });
     
