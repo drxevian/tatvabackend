@@ -17,14 +17,23 @@ router.post('/login', (req, res) => {
     // Set cookie with token
     res.cookie('adminToken', token, {
       httpOnly: true,
-      secure: process.env.NODE_ENV === 'production',
+      secure: env.nodeEnv === 'production',
+      sameSite: env.nodeEnv === 'production' ? 'none' : 'lax',
       maxAge: 24 * 60 * 60 * 1000 // 1 day
     });
     
-    return res.json({ success: true });
+    return res.json({ 
+      success: true,
+      authenticated: true,
+      message: 'Login successful'
+    });
   }
   
-  return res.status(401).json({ success: false, message: 'Invalid credentials' });
+  return res.status(401).json({ 
+    success: false, 
+    authenticated: false,
+    message: 'Invalid credentials' 
+  });
 });
 
 // Admin logout route
@@ -32,16 +41,25 @@ router.post('/logout', (req, res) => {
   // Clear the cookie by setting it to expire in the past
   res.clearCookie('adminToken', {
     httpOnly: true,
-    secure: process.env.NODE_ENV === 'production',
+    secure: env.nodeEnv === 'production',
+    sameSite: env.nodeEnv === 'production' ? 'none' : 'lax',
     maxAge: 0
   });
   
-  return res.json({ success: true });
+  return res.json({ 
+    success: true,
+    authenticated: false,
+    message: 'Logout successful'
+  });
 });
 
 // Check if the admin is authenticated
 router.get('/check-auth', verifyAdminToken, (req, res) => {
-  res.json({ authenticated: true });
+  res.json({ 
+    authenticated: true,
+    success: true,
+    message: 'Authentication verified'
+  });
 });
 
 export default router;

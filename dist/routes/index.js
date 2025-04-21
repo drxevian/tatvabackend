@@ -8,6 +8,7 @@ const productRoutes_1 = __importDefault(require("./productRoutes"));
 const inquiryRoutes_1 = __importDefault(require("./inquiryRoutes"));
 const contactRoutes_1 = __importDefault(require("./contactRoutes"));
 const serviceInquiryRoutes_1 = __importDefault(require("./serviceInquiryRoutes"));
+const adminRoutes_1 = __importDefault(require("./adminRoutes"));
 const router = express_1.default.Router();
 // Mount all product routes under /api/products
 router.use('/products', productRoutes_1.default);
@@ -15,4 +16,6 @@ router.use('/products', productRoutes_1.default);
 router.use('/inquiries', inquiryRoutes_1.default);
 router.use('/contacts', contactRoutes_1.default);
 router.use('/service-inquiries', serviceInquiryRoutes_1.default);
+// Admin routes
+router.use('/admin', adminRoutes_1.default);
 exports.default = router;

@@ -7,29 +7,22 @@ import { env } from './config/env';
 const app = express();
 const port = env.port;
 
-// Configure CORS based on environment
-const allowedOrigins = env.nodeEnv === 'production' 
-  ? ['https://your-frontend-domain.vercel.app'] // Replace with your actual Vercel domain
-  : ['http://localhost:5173', 'http://localhost:3000']; // Development origins
-
-app.use(cors({
-  origin: (origin, callback) => {
-    // Allow requests with no origin (like mobile apps or curl requests)
-    if (!origin) return callback(null, true);
-    
-    if (allowedOrigins.indexOf(origin) === -1) {
-      const msg = 'The CORS policy for this site does not allow access from the specified Origin.';
-      return callback(new Error(msg), false);
-    }
-    return callback(null, true);
-  },
+// CORS configuration
+const corsOptions = {
+  origin: ['https://tatvaengineers.vercel.app', 'http://localhost:5173'], // Allow specific origins
   credentials: true,
   methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS', 'PATCH'],
-  allowedHeaders: ['Content-Type', 'Authorization']
-}));
+  allowedHeaders: ['Content-Type', 'Authorization', 'Accept', 'Origin', 'X-Requested-With'],
+  exposedHeaders: ['Set-Cookie'],
+  preflightContinue: false,
+  optionsSuccessStatus: 204
+};
+
+// Apply CORS middleware
+app.use(cors(corsOptions));
 
 app.use(express.json());
-app.use(cookieParser()); // Add cookie-parser middleware
+app.use(cookieParser());
 app.use('/api', apiRoutes);
 
 app.get('/', (req, res) => {
