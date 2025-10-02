@@ -10,7 +10,7 @@ router.post('/login', (req, res) => {
   const { email, password } = req.body;
   
   // Check credentials (in a real app, you'd use a database)
-  if (email === 'admin@admin' && password === 'admin') {
+  if (email === 'TATVA@ENGINEERS' && password === 'Tatva1007.') {
     // Create JWT token
     const token = jwt.sign({ email, role: 'admin' }, env.jwtSecret, { expiresIn: '1d' });
     
