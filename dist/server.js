@@ -12,7 +12,7 @@ const app = (0, express_1.default)();
 const port = env_1.env.port;
 // CORS configuration
 const corsOptions = {
-    origin: ['https://tatvaengineers.vercel.app', 'http://localhost:5173'], // Allow specific origins
+    origin: ['https://www.tatvaengineers.com', 'https://tatvaengineers.vercel.app', 'http://localhost:5173', 'https://tatvabackend.onrender.com'],
     credentials: true,
     methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS', 'PATCH'],
     allowedHeaders: ['Content-Type', 'Authorization', 'Accept', 'Origin', 'X-Requested-With'],
